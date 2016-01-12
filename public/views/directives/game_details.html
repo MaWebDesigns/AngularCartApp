@@ -1,0 +1,44 @@
+<h1 class="gameTitle"> {{currentGame.gameName}} </h1>
+<div class="drawNumbers">
+	<input type="text" value="-" size="2" class="drawNumber" ng-model="usersGameNumbers[$index]" ng-repeat="i in getLoopNumber(currentGame.numberOfPicks) track by $index" />
+	<input type="text" value="" placeholder="-" size="2" class="drawNumber" id="bonusNumber" ng-model="usersBonusNumber" ng-show="currentGame.bonusBall" /> 
+</div>
+
+<quickpicks></quickpicks>
+
+<ul class ="gameDetailTabs"> 
+	<li ng-repeat="gameTab in currentGame.gamesTabs">
+		<a ng-click="showTabDetails(gameTab.type)"> {{gameTab.name}} </a>
+	</li> 	 
+</ul>
+
+<div class="detailsTab" ng-show="isInfoTabSelected()">
+	<img ng-src="images/{{currentGame.gameLogo}}" id="gameLogo" ng-alt="{{currentGame.gameName}}" />
+	<div class="gameInfo">
+		<h2> Next Estimated Jackpot <span class="jackpot"> {{currentGame.currentJackpot}} </span> </h2>
+		<h2> Draw Date <span class="drawDate"> {{currentGame.drawDate}} </span> </h2>
+		<h3> Sales End At <span class="saleEndTime"> {{currentGame.saleEndTime}} </span> </h3>
+	</div>
+	<p class="gameDiscrption"> {{currentGame.gamesTabs[0].details}} </p>
+		
+</div>
+
+<div class="detailsTab" ng-show="isNumbersTabSelected()">
+	<p class="gameDiscrption"> {{currentGame.gamesTabs[1].details}} </p>
+	<div class="drawPool">
+		<button class="poolButton" value={{i}} ng-model="pickedNumber" ng-click="addUserNumbers($event, $index+1)" ng-class="{selectedNumber: isSelected($index+1)}" ng-repeat="i in getLoopNumber(currentGame.numberPool) track by $index">{{$index + 1}}</button>
+	</div>
+</div>
+
+<div class="detailsTab" ng-show="isBonusTabSelected()">
+	<p class="gameDiscrption"> {{currentGame.gamesTabs[2].details}} </p>
+	<div class="drawPool">
+		<button class="poolButton bonusPool" value={{i}} ng-model="usersBonusNumber" ng-click="addBonusNumber($event, $index+1)" ng-class="{selectedNumber: isBonusSelected($index+1)}" ng-repeat="i in getLoopNumber(currentGame.numberPool) track by $index">{{$index + 1}}</button>
+	</div>
+</div>
+
+<div class="howToButtons">
+	<a ng-href="{{currentGame.howToPlayLink}}" > How To Play </a>
+	<a ng-href="{{currentGame.winningNumbersLink}}" > Winning Numbers </a>
+</div>
+

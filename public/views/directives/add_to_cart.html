@@ -1,0 +1,20 @@
+<div class="addToCartArea">
+	<fieldset>  
+		<label> Number of Draws </label>
+		<select ng-model="userDraws" ng-options="draw.name for draw in currentGame.numberOfDrawsAllowed track by draw.value" ng-change="drawUpdated()" > </select>
+	</fieldset>
+	
+	<fieldset>  
+		<label> Select/ Create a Group </label>
+		<select ng-model="usersGroups"> </select>
+	</fieldset>
+	
+	
+	<fieldset>  
+		<label> Total Price </label>
+		<input class="totalPrice" type="text" ng-model="totalPrice" disabled currency />
+	</fieldset>
+	
+	<button class="addToCartBtn" ng-click="addToCart()"> Add To Cart </button> 
+	
+</div>

@@ -1,0 +1,91 @@
+{
+	"games": [
+		{ 
+			"gameName": "Powerball",
+			"numberOfPicks" : 5, 
+			"numberPool" : 59, 
+			"bonusBall" : true,
+			"gameLogo" : "games/powerball.png",
+			"pricePerGame" : 1.00,
+			"currentJackpot" : "129 Million",
+			"drawDate":  "09/15/2015",
+			"saleEndTime": "9:00pm",
+			"howToPlayLink": "http://www.mainelottery.com/games/powerball-how.shtml", 
+			"winningNumbersLink": "http://www.mainelottery.com/games/powerballPrevious.shtml",
+			"gamesTabs" : [
+				{
+					"name" :  "Information",
+					"type" : "info",
+					"details" : "Powerball jackpots start at $40 million and keep growing until somebody wins. Cost is $2 per play for a chance to win millions."
+				},
+				{
+					"name" :  "Numbers",
+					"type" : "numbers",
+					"details" : "Please choose your numbers for the drawing"
+				},
+				{
+					"name" :  "Powerball",
+					"type": "bonusBall",
+					"details" : "Please choose one number as your powerball"
+				}
+			],
+			"numberOfDrawsAllowed" : [ 
+				{
+					"name" : "26 Draws / 13 Weeks",
+					"value" : 26
+				},
+				{
+					"name" : "52 Draws / 26 Weeks",
+					"value" : 52
+				},
+				{
+					"name" : "104 Draws / 52 Weeks",
+					"value" : 104
+				}
+			]
+		},
+		{ 
+			"gameName": "MegaBucks",
+			"numberOfPicks" : 5, 
+			"numberPool" : 41, 
+			"bonusBall" : true,
+			"gameLogo" : "games/MB.png",
+			"pricePerGame" : 1.00,
+			"currentJackpot" : "29 Million",
+			"drawDate":  "09/17/2015",
+			"saleEndTime": "9:30pm",
+			"howToPlayLink": "http://www.mainelottery.com/games/megabucksplus-how.shtml", 
+			"winningNumbersLink": "http://www.mainelottery.com/games/megaplusold.shtml",
+			"gamesTabs" : [
+				{
+					"name" :  "Information",
+					"details" : "Powerball jackpots start at $40 million and keep growing until somebody wins. Cost is $2 per play for a chance to win millions."
+				},
+				{
+					"name" :  "Numbers",
+					"details" : "Please choose your numbers for the drawing"
+				},
+				{
+					"name" :  "Powerball",
+					"details" : "Please choose one number as your powerball"
+				}
+			],
+			"numberOfDrawsAllowed" : [ 
+				{
+					"name" : "26 Draws / 13 Weeks",
+					"value" : "26"
+				},
+				{
+					"name" : "52 Draws / 26 Weeks",
+					"value" : "52"
+				},
+				{
+					"name" : "104 Draws / 52 Weeks",
+					"value" : "104"
+				}
+			]
+		
+			
+		}
+	]
+}

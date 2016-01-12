@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<base href="/">
+
+	<title>Scientific Games Angular Cart App<</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/globalcartstyles.css"> <!-- Styles for the cart -->
+	<link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+
+</head>
+<body ng-app="subscriptionApp">
+	<div class="container" ng-controller="SubscriptionController">
+		<!-- HEADER -->
+		<nav class="navbar navbar-inverse">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Scientific Games</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li><a href="/subscriptions">Subscriptions</a></li>
+			</ul>
+		</nav>
+
+		<!-- ANGULAR DYNAMIC CONTENT -->
+		<div ng-view></div>
+
+	</div>
+	<!-- JQuery - Needs to be loaded before Angular --> 
+	<script src="libs/jquery/dist/jquery.min.js"></script> 
+
+	<!-- JS -->
+	<script src="libs/angular/angular.min.js"></script>
+	<script src="libs/angular-route/angular-route.min.js"></script>
+
+	<!-- Controllers and Services  -->
+	<script src="js/controllers/MainCtrl.js"></script>
+	<script src="js/controllers/SubscriptionCtrl.js"></script>
+	<script src="js/services/SubscriptionService.js"></script>
+	<script src="js/appRoutes.js"></script>
+	<script src="js/app.js"></script>
+</body>
+</html>
