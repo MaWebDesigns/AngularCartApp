@@ -1,0 +1,21 @@
+<div class="jumbotron text-center">
+	<h1>Cart</h1>
+	<div id="wrapper"> 
+		<div id="cartHeader">
+			<img src="images/cart-blue.jpg" alt="Your Cart" /> 
+			<h2>  Cart ( {{cartData.length}} ) </h2>
+		</div>
+		<cart-table></cart-table>
+		
+		<div id="checkoutArea">
+			<purchase_name></purchase_name>
+			<cart_total></cart_total>
+			
+			<div id="buttonArea">
+				<button ng-click="updateCart()" ng-disabled="!(isInEditMode())" id="updateBtn" 
+				ng-class="updateButtonActive()">Update Cart</button>
+				<button ng-click="checkout()" id="checkoutBtn">Checkout</button>
+			</div>
+		</div>
+	</div>
+</div>

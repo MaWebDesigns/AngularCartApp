@@ -1,0 +1,41 @@
+<table id="cartContents">
+	<thead> 
+		<tr>
+			<th> Game </th>
+			<th> Numbers </th>
+			<th> Multiplier </th>
+			<th> Group </th>
+			<th> Draws </th>
+			<th> Options </th>
+			<th> Price </th>
+			<th> Edit </th>
+			<th> Remove </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="ticket in cartData">
+			<td class="gameImg"> <img ng-src="images/{{ticket.gameImg}}" id="gameLogo" ng-alt="{{ticket.gameId}}" /> </td>
+			<td class="gameNumbers">
+				<div class="ticketNumbers" ng-repeat="number in ticket.numbers track by $index"> 
+					<input type="text" ng-model="number" ng-disabled="!(editableRows[($parent.$index)])" /> 
+				</div>
+				<div class="bonusNumbers" ng-repeat="number in ticket.bonusNumbers track by $index"> 
+					<input class="bonusBall" type="text" ng-disabled="!editableRows[($parent.$index)]" ng-model="ticket.bonusNumbers" /> 
+				</div>
+			</td>
+			<td> <input type="checkbox" ng-attr-id="{{ 'ticketMultipier-' + $index }}" ng-model="cartData[$index].multiplier" ng-checked="ticket.multiplier" ng-disabled="!editableRows[$index]" ng-click="multiplierClicked($index, $event)" /> </td>
+			<td> 
+				<select ng-model="cartData[$index].group" ng-init="ticket.group" ng-disabled="!editableRows[$index]" 
+				ng-class="{selectDisabled:!editableRows[$index],'selectEnabled':editableRows[$index] }">
+					<option ng-repeat="group in ticket.availableGroups" >{{group}}</option>
+				</select>
+			</td>
+			<td class="draws"> <input type="text" ng-model="cartData[$index].numberOfDraws.value" value="cartData[$index].numberOfDraws.value" ng-disabled="!editableRows[($index)]" ng-change="drawsChanged($index)" /></td>
+			<td> {{ticket.options}}</td>
+			<td> {{ticket.ticketPrice | currency}}</td>
+			<td> <button class="ticketEdit" ng-attr-id="{{ 'editTicket-' + $index }}" ng-click="editRow($index)" ng-disabled="editableRows[$index]" 
+			ng-class="{editDisabled:editableRows[$index],'editEnabled':!editableRows[$index]}">{{editText[$index]}}</button> </td>
+			<td> <input type="checkbox" value="false" class="removeBox"  ng-init='checkStatus=false' ng-model='checkStatus' ng-attr-id="{{ 'removeTicket-' + $index }}" ng-click="markRowForDeletion($index, checkStatus, $event)"/></td>
+		</tr>
+	</tbody>
+</table>	

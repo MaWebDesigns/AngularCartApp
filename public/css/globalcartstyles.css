@@ -209,7 +209,41 @@ quickpicks a {
     font-size: 0.9em;
 }
 
+.ticketHeader
+{
+	font-size: 1.5em;
+	text-align: center;
+}
 
+.previousTicketBtn,
+.nextTicketBtn
+{
+	background-color: #8c0000;
+	color:white;
+}
+
+.previousTicketBtn
+{
+	float:left;
+}
+
+.nextTicketBtn
+{
+	float:right;
+}
+
+.paginateButtons
+{
+	margin: 0 0 10px 0;
+	float: left;
+	width: 100%;
+}
+
+.paginateButtons:after
+{
+	content: "";
+	clear:both;
+}
 
 /* Add to cart Area */
 add-to-cart {
@@ -242,5 +276,190 @@ input[disabled] {
 	text-align: center;
 }
 
+/* Cart Page */
+#cartHeader img
+{
+	display:inline-block;
+	width: auto;
+}
 
+#cartHeader h2
+{
+	display: inline;
+	padding-left: 10px;
+	color: #3d5023;
+}
+
+#cartContents
+{
+	width: 100%;
+	border: 1px solid #ccc;
+	margin-top: 0.5em;
+} 
+
+#cartContents th
+{
+	text-align: center;
+}
+
+
+#cartContents tbody tr:nth-child(even)
+{
+	background-color: #ccc;
+}
+
+td,
+th
+{
+	margin-right: 1%;
+	width: 10%;
+	text-align:center;
+}
+
+td:last-of-type,
+th:last-of-type
+{
+	margin-right: 0;
+}
+
+.gameImg img 
+{
+	width: 95%;
+}
+
+.gameNumbers
+ {
+	width: 20%; 
+	padding-left: 2%;
+}
+
+.gameNumbers input
+{
+	width: 2em;
+	font-size: 0.9em;
+	float: left;
+	text-align:center;	
+}
+
+.gameNumbers:after
+{
+	content:'';
+	clear:both;
+}
+
+.gameNumbers input.bonusBall 
+{
+	background-color: #C31F3A;
+	color: #fff;
+}
+
+.draws input
+{
+	width: 3em;
+	text-align:right;
+}
+
+#checkoutArea 
+{
+	text-align: left;	
+	margin-top: 1em;
+}
+
+#cartTotal 
+{
+	float: right; 
+	padding-right: 1em;
+}
+
+
+#cartTotal label 
+{
+	display: inline-block;
+	width: auto;  
+	font-size: 1.2em;
+	margin-top: 3px;
+}
+
+#total
+{
+	display: inline-block;
+	width: 5em;
+	background-color: #000;
+	color: #fff;
+	text-align: right;
+	line-height: 2em;
+	font-weight: bold;
+	font-size: 1.1em;
+	padding-right: 5px;
+}
+
+#buttonArea
+{
+	clear:both;
+	text-align: right;
+	margin: 10px 1em 1em 0;
+}
+
+#buttonArea:after
+{
+	content: '';
+	clear:both;
+}
+
+#confirmCheckoutBtn,
+#buttonArea button
+{
+	box-shadow: #666 2px 2px 3px;
+	padding: 0.5em;
+	border-radius: 4px;
+	font-weight: bold;
+}
+
+.btnActive {
+	background-color: #4ba5dc;
+	color: #fff;
+}
+
+#checkoutBtn
+{
+	background-color: #fc0;
+    color: #000;
+    border: none;
+}
+
+.ticketEdit {
+	border-radius: 10px;
+	padding: 0.2em 1.5em;
+}
+
+.editDisabled 
+{
+	background: #ccc;
+	color: #000;
+	border: 0;
+	
+}
+
+#addItemBtn,
+.editEnabled
+{
+	background-color: #005aab;
+	color: #fff;
+}
+
+.selectDisabled 
+{
+	color: #ccc;
+}
+
+.selectEnabled 
+{
+	color: #000;
+}
+
+.confirmCheckout
+{
+	text-align: right;
+	padding: 20px;
+}
 

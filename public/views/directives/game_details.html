@@ -1,10 +1,9 @@
-<h1 class="gameTitle"> {{currentGame.gameName}} </h1>
-<div class="drawNumbers">
-	<input type="text" value="-" size="2" class="drawNumber" ng-model="usersGameNumbers[$index]" ng-repeat="i in getLoopNumber(currentGame.numberOfPicks) track by $index" />
-	<input type="text" value="" placeholder="-" size="2" class="drawNumber" id="bonusNumber" ng-model="usersBonusNumber" ng-show="currentGame.bonusBall" /> 
+<div class="drawNumbers" id="ticket-{$index}}" ng-repeat="ticket in getLoopNumber(numberOfTickets) track by $index" >
+	<input type="text" value="-" size="2" class="drawNumber" ng-model="usersTickets[$parent.$index].numbers[$index]" ng-repeat="i in getLoopNumber(currentGame.numberOfPicks) track by $index" ng-change="ticketNumbersChanged($parent.$index, false)"/>
+	<input type="text" value="" placeholder="-" size="2" class="drawNumber" id="bonusNumber" ng-model="usersTickets[$parent.$index].bonusNumbers[$index]" ng-repeat="i in getLoopNumber(currentGame.numberOfBonusPicks) track by $index" ng-change="ticketNumbersChanged($parent.$index, true)" ng-show="currentGame.bonusBall" />
+	<quickpicks></quickpicks>
+	<multiplier></multiplier>
 </div>
-
-<quickpicks></quickpicks>
 
 <ul class ="gameDetailTabs"> 
 	<li ng-repeat="gameTab in currentGame.gamesTabs">
@@ -20,20 +19,29 @@
 		<h3> Sales End At <span class="saleEndTime"> {{currentGame.saleEndTime}} </span> </h3>
 	</div>
 	<p class="gameDiscrption"> {{currentGame.gamesTabs[0].details}} </p>
-		
 </div>
 
 <div class="detailsTab" ng-show="isNumbersTabSelected()">
 	<p class="gameDiscrption"> {{currentGame.gamesTabs[1].details}} </p>
-	<div class="drawPool">
-		<button class="poolButton" value={{i}} ng-model="pickedNumber" ng-click="addUserNumbers($event, $index+1)" ng-class="{selectedNumber: isSelected($index+1)}" ng-repeat="i in getLoopNumber(currentGame.numberPool) track by $index">{{$index + 1}}</button>
+	<div class="paginateButtons">
+		<button class="previousTicketBtn" ng-click="changeActiveTicket('previous')" ng-hide="activeTicket == 0">Previous</button>
+		<button class="nextTicketBtn" ng-click="changeActiveTicket('next')" ng-hide="activeTicket >= (numberOfTickets-1)">Next</button>
+	</div>
+	<div class="drawPool" ng-repeat="ticket in getLoopNumber(numberOfTickets) track by $index" ng-hide="hideTicket($index)">
+		<h2 class="ticketHeader"> Ticket {{$index+1}} of {{numberOfTickets}} </h2>
+		<button class="poolButton" value="{{i.toSting()}}" ng-model="pickedNumber" ng-click="addUserNumbers($parent.$index, $index+1)" ng-class="{selectedNumber: isSelected($parent.$index, $index+1)}" ng-repeat="i in getLoopNumber(currentGame.numberPool) track by $index">{{$index + 1}}</button>
 	</div>
 </div>
 
 <div class="detailsTab" ng-show="isBonusTabSelected()">
 	<p class="gameDiscrption"> {{currentGame.gamesTabs[2].details}} </p>
-	<div class="drawPool">
-		<button class="poolButton bonusPool" value={{i}} ng-model="usersBonusNumber" ng-click="addBonusNumber($event, $index+1)" ng-class="{selectedNumber: isBonusSelected($index+1)}" ng-repeat="i in getLoopNumber(currentGame.numberPool) track by $index">{{$index + 1}}</button>
+	<div class="paginateButtons">
+		<button class="previousTicketBtn" ng-click="changeActiveTicket('previous')" ng-hide="activeTicket == 0">Previous</button>
+		<button class="nextTicketBtn" ng-click="changeActiveTicket('next')" ng-hide="activeTicket >= (numberOfTickets-1)">Next</button>
+	</div>
+	<div class="drawPool" ng-repeat="ticket in getLoopNumber(numberOfTickets) track by $index" ng-hide="hideTicket($index)">
+		<h2 class="ticketHeader"> Ticket {{$index+1}} of {{numberOfTickets}} </h2>
+		<button class="poolButton bonusPool" value={{i}} ng-model="usersBonusNumber" ng-click="addBonusNumber($parent.$index, $index+1)" ng-class="{selectedNumber: isBonusSelected($parent.$index, $index+1)}" ng-repeat="i in getLoopNumber(currentGame.bonusNumberPool) track by $index">{{$index + 1}}</button>
 	</div>
 </div>
 

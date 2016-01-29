@@ -1,0 +1,22 @@
+<div class="jumbotron text-center">
+	<h1>Confirm Checkout</h1>
+	<div id="wrapper"> 
+		<p><strong>Please review your purchase items before clicking the Confirm Subscription button</strong></p>
+		<cart-table></cart-table>
+		
+		<div id="checkoutArea">
+			<purchase_name></purchase_name>
+			<cart_total></cart_total>
+			
+			<div id="buttonArea">
+				<a href="/subscriptions">Cancel</a>
+				<button ng-click="AddItems()" id="addItemBtn">Add Items</button>
+				<button ng-click="updateCart()" ng-disabled="!(isInEditMode())" id="updateBtn" 
+				ng-class="updateButtonActive()">Update Cart</button>
+			</div>
+		</div>
+	</div>
+	<div class="confirmCheckout">
+		<button ng-click="confirmCheckout()" ng-disabled="isInEditMode()" id="confirmCheckoutBtn" ng-class="checkoutButtonActive()">Confirm Checkout</button>
+	</div>
+</div>	

@@ -2,9 +2,12 @@
 	"games": [
 		{ 
 			"gameName": "Powerball",
+			"maxTicketsAllowed": 10,
 			"numberOfPicks" : 5, 
+			"numberOfBonusPicks": 1,
 			"numberPool" : 59, 
 			"bonusBall" : true,
+			"bonusNumberPool":49,
 			"gameLogo" : "games/powerball.png",
 			"pricePerGame" : 1.00,
 			"currentJackpot" : "129 Million",
@@ -42,13 +45,21 @@
 					"name" : "104 Draws / 52 Weeks",
 					"value" : 104
 				}
-			]
+			],
+			"multiplier" : 
+			{
+				"name": "Powerball",
+				"value": 2.00
+			}
 		},
 		{ 
 			"gameName": "MegaBucks",
-			"numberOfPicks" : 5, 
+			"maxTicketsAllowed": 5,
+			"numberOfPicks" : 5,
+			"numberOfBonusPicks": 1,
 			"numberPool" : 41, 
 			"bonusBall" : true,
+			"bonusNumberPool":30,
 			"gameLogo" : "games/MB.png",
 			"pricePerGame" : 1.00,
 			"currentJackpot" : "29 Million",
@@ -83,7 +94,12 @@
 					"name" : "104 Draws / 52 Weeks",
 					"value" : "104"
 				}
-			]
+			],
+			"multiplier" : 
+			{
+				"name": "Megaball",
+				"value": 3.00
+			}
 		
 			
 		}

@@ -1,1 +1,1 @@
-angular.module('subscriptionApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'SubscriptionCtrl']);
+angular.module('subscriptionApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'SubscriptionCtrl', 'CartCtrl']);
