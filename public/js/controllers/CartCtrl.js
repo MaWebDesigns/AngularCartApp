@@ -1,12 +1,17 @@
-angular.module('CartCtrl', []).controller('CartController', function($scope, $location, Games) {
+angular.module('CartCtrl', []).controller('CartController', function($scope, $location, $timeout, Games) {
 
 	$scope.cartData = [];   			// All tickets/orders within the current cart
 	$scope.editableRows = [];   		// Keeps track of edit state in each row
 	$scope.rowsMarkedForDeletion = [];  // Keeps track of any row that is marked for deletion.  
+	$scope.checkStatus = [];			// status of the "Remove" buttons for each row
 	$scope.editText = [];				// Text of the "Edit" button for each row (not sure if we need this?)
 	$scope.inEditMode = false;  		// Flag that indicates if any row is currently being edited 
 	$scope.purchaseName = new Date();	// Name of the purchase
 	$scope.cartTotal = 0;				// Total for the entire cart
+	
+	// For table sort
+	$scope.sortType = "gameId";
+	$scope.sortReverse = false;
 	
 	/************************************************************************
 	// getCart
@@ -52,12 +57,14 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 				ticket.multiplier = data[i].multiplier;
 				ticket.multiplierPrice = data[i].multiplierPrice;
 				ticket.ticketPrice = data[i].ticketPrice;
-				ticket.numberOfDraws = data[i].numberOfDraws;
+				ticket.numberOfDraws = data[i].numberOfDraws.value;
 				ticket.pricePerTicket = data[i].pricePerTicket;
 				ticket.group = data[i].group;
 				ticket.availableGroups = data[i].availableGroups;
 				ticket.options = data[i].options;
 				$scope.cartData.push(ticket);
+				
+				console.log("number of draws = " + ticket.numberOfDraws);
 			}
 			else 
 			{
@@ -74,11 +81,13 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 					ticket.multiplierPrice = data[i].multiplierPrice;
 					ticket.ticketPrice = data[i].tickets[j].ticketPrice;
 					ticket.pricePerTicket = data[i].pricePerTicket;
-					ticket.numberOfDraws = data[i].numberOfDraws;
+					ticket.numberOfDraws = data[i].numberOfDraws.value;
 					ticket.group = data[i].group;
 					ticket.availableGroups = data[i].availableGroups;
 					ticket.options = data[i].options;
 					$scope.cartData.push(ticket);		
+					
+					console.log("number of draws = " + ticket.numberOfDraws);
 				}
 			}
 		}
@@ -107,8 +116,6 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 		{
 			$scope.cartTotal = $scope.cartTotal + $scope.cartData[i].ticketPrice;
 		}
-		console.log("Cart Total = " +  $scope.cartTotal);
-		
 	}
 	
 	/************************************************************************
@@ -120,7 +127,6 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 	*/
 	$scope.editRow = function(row)
 	{
-		console.log("in EditRow - row = " + row + " Edit Status for row is " + $scope.editableRows[row] + "Length of Editable Rows is " +  $scope.editableRows.length);
 		if ($scope.editableRows[row] == true)
 		{
 			$scope.editableRows[row] = false;
@@ -213,6 +219,24 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 	}
 	
 	/************************************************************************
+	// markRowForDeletion
+	// Marks all rows in the cart table for deletion upon an update.  
+	//
+	// Inputs:  
+	//    none;
+	*/
+	$scope.markAllRowsForDeletion = function()
+	{
+		$scope.rowsMarkedForDeletion = [];
+		for (var i = 0; i< $scope.cartData.length; i++)
+		{
+			$scope.rowsMarkedForDeletion.push(i);
+			$scope.checkStatus[i] = true;
+			$scope.editRow(i);
+		}
+		
+	}
+	/************************************************************************
 	// multiplierClicked
 	// Callback for when the multiplier checkbox is clicked on a row.   
 	// will update the model and prices accordingly
@@ -223,7 +247,6 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 	*/
 	$scope.multiplierClicked = function(row, $event)
 	{
-		console.log("In Multiplier clicked- multiplier = " + $event.currentTarget.checked + " price = " + $scope.cartData[row].multiplierPrice);
 		if ($event.currentTarget.checked == true)
 		{
 			console.log("In Multiplier clicked - on");
@@ -236,10 +259,19 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 		$scope.calculateCartTotal();
 	}
 	
+	
+	/************************************************************************
+	// drawsChanged
+	// Callback when the number of draws on a ticket changes.   Updates the 
+	// total price of the cart and on the ticket affected.   
+	//
+	// Inputs:  
+	//    row - current row 
+	//    
+	*/
 	$scope.drawsChanged = function(row)
 	{
-		console.log("In Draws Changed - number of draws = " + $scope.cartData[row].numberOfDraws.value + " Price Per Ticket " + $scope.cartData[row].pricePerTicket + " Multiplier = " + $scope.cartData[row].multiplier + " Multiplier Price = " + $scope.cartData[row].multiplierPrice); 
-		$scope.cartData[row].ticketPrice = $scope.cartData[row].numberOfDraws.value * $scope.cartData[row].pricePerTicket;
+		$scope.cartData[row].ticketPrice = $scope.cartData[row].numberOfDraws * $scope.cartData[row].pricePerTicket;
 		if ($scope.cartData[row].multiplier)
 		{
 			$scope.cartData[row].ticketPrice =  $scope.cartData[row].ticketPrice * $scope.cartData[row].multiplierPrice;
@@ -354,6 +386,7 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 		
 	}
 })
+// Directive for the Cart Table
 .directive('cartTable', function() 
 {
 	return {
@@ -361,6 +394,7 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 		templateUrl: "views/directives/cart_table.html"
 	};
 })
+// Purchase Name field
 .directive('purchaseName', function() 
 {
 	return {
@@ -368,6 +402,7 @@ angular.module('CartCtrl', []).controller('CartController', function($scope, $lo
 		templateUrl: "views/directives/purchase_name.html"
 	};
 })
+// Cart Total area 
 .directive('cartTotal', function() 
 {
 	return {

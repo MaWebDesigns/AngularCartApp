@@ -1,19 +1,58 @@
 <table id="cartContents">
 	<thead> 
 		<tr>
-			<th> Game </th>
-			<th> Numbers </th>
-			<th> Multiplier </th>
-			<th> Group </th>
-			<th> Draws </th>
-			<th> Options </th>
-			<th> Price </th>
+			<th ng-click="sortType = 'gameId'; sortReverse = !sortReverse"> 
+				Game 
+				<span ng-show="sortType == 'gameId' && !sortReverse" class="caret-down"></span>
+				<span ng-show="sortType == 'gameId' && sortReverse" class="caret-up"></span>
+			</th>
+			<th ng-click="sortType = 'numbers[0]'; sortReverse = !sortReverse"> 
+				Numbers 
+				<span ng-show="sortType == 'numbers[0]' && !sortReverse" class="caret-down"></span> 
+				<span ng-show="sortType == 'numbers[0]' && sortReverse" class="caret-up"></span> </th>
+			</th>
+			<th ng-click="sortType = 'multiplier'; sortReverse = !sortReverse">
+				Multiplier
+				<span ng-show="sortType == 'multiplier' && !sortReverse" class="caret-down"></span> 
+				<span ng-show="sortType == 'multiplier' && sortReverse" class="caret-up"></span> 
+			</th>
+			<th ng-click="sortType = 'group'; sortReverse = !sortReverse"> 
+				Group 
+				<span ng-show="sortType == 'group' && !sortReverse" class="caret-down"></span> 
+				<span ng-show="sortType == 'group' && sortReverse" class="caret-up"></span> 
+			</th>
+			<th ng-click="sortType = 'numberOfDraws'; sortReverse = !sortReverse"> 
+				Draws 
+				<span ng-show="sortType == 'numberOfDraws' && !sortReverse" class="caret-down"></span> 
+				<span ng-show="sortType == 'numberOfDraws' && sortReverse" class="caret-up"></span> 
+			</th>
+			<th ng-click="sortType = 'options'; sortReverse = !sortReverse"> 
+				Options 
+				<span ng-show="sortType == 'options' && !sortReverse" class="caret-down"></span> 
+				<span ng-show="sortType == 'options' && sortReverse" class="caret-up"></span> 
+			</th>
+			<th ng-click="sortType = 'ticketPrice'; sortReverse = !sortReverse"> 
+				Price 
+				<span ng-show="sortType == 'ticketPrice' && !sortReverse" class="caret-down"></span> 
+				<span ng-show="sortType == 'ticketPrice' && sortReverse" class="caret-up"></span> 
+			</th>
 			<th> Edit </th>
 			<th> Remove </th>
 		</tr>
 	</thead>
+	<tfoot>
+		<tr> 
+			<td colspan="7"></td>
+			<td> 
+				<label for="removeAllRows">Remove All:</label>
+			</td>
+			<td>
+				<input type="checkbox" value="false" id="removeAllRows" class="removeBox" ng-init='removeAllStatus=false' ng-model='removeAllStatus'  ng-click="markAllRowsForDeletion()"/>
+			</td>
+		</tr>
+	</tfoot>
 	<tbody>
-		<tr ng-repeat="ticket in cartData">
+		<tr ng-repeat="ticket in cartData | orderBy:sortType:sortReverse">
 			<td class="gameImg"> <img ng-src="images/{{ticket.gameImg}}" id="gameLogo" ng-alt="{{ticket.gameId}}" /> </td>
 			<td class="gameNumbers">
 				<div class="ticketNumbers" ng-repeat="number in ticket.numbers track by $index"> 
@@ -23,19 +62,19 @@
 					<input class="bonusBall" type="text" ng-disabled="!editableRows[($parent.$index)]" ng-model="ticket.bonusNumbers" /> 
 				</div>
 			</td>
-			<td> <input type="checkbox" ng-attr-id="{{ 'ticketMultipier-' + $index }}" ng-model="cartData[$index].multiplier" ng-checked="ticket.multiplier" ng-disabled="!editableRows[$index]" ng-click="multiplierClicked($index, $event)" /> </td>
+			<td> <input type="checkbox" ng-attr-id="{{ 'ticketMultipier-' + $index }}" ng-model="multiplier" ng-checked="ticket.multiplier" ng-disabled="!editableRows[$index]" ng-click="multiplierClicked($index, $event)" /> </td>
 			<td> 
 				<select ng-model="cartData[$index].group" ng-init="ticket.group" ng-disabled="!editableRows[$index]" 
 				ng-class="{selectDisabled:!editableRows[$index],'selectEnabled':editableRows[$index] }">
 					<option ng-repeat="group in ticket.availableGroups" >{{group}}</option>
 				</select>
 			</td>
-			<td class="draws"> <input type="text" ng-model="cartData[$index].numberOfDraws.value" value="cartData[$index].numberOfDraws.value" ng-disabled="!editableRows[($index)]" ng-change="drawsChanged($index)" /></td>
+			<td class="draws"> <input type="text" ng-model="ticket.numberOfDraws" value="ticket.numberOfDraws" ng-disabled="!editableRows[($index)]" ng-change="drawsChanged($index)" /></td>
 			<td> {{ticket.options}}</td>
 			<td> {{ticket.ticketPrice | currency}}</td>
 			<td> <button class="ticketEdit" ng-attr-id="{{ 'editTicket-' + $index }}" ng-click="editRow($index)" ng-disabled="editableRows[$index]" 
 			ng-class="{editDisabled:editableRows[$index],'editEnabled':!editableRows[$index]}">{{editText[$index]}}</button> </td>
-			<td> <input type="checkbox" value="false" class="removeBox"  ng-init='checkStatus=false' ng-model='checkStatus' ng-attr-id="{{ 'removeTicket-' + $index }}" ng-click="markRowForDeletion($index, checkStatus, $event)"/></td>
+			<td> <input type="checkbox" value="false" class="removeBox"  ng-init='checkStatus[$index]=false' ng-model='checkStatus[$index]' ng-attr-id="{{ 'removeTicket-' + $index }}" ng-click="markRowForDeletion($index, checkStatus, $event)"/></td>
 		</tr>
 	</tbody>
 </table>	

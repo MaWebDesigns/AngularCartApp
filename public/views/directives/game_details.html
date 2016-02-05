@@ -4,6 +4,10 @@
 	<quickpicks></quickpicks>
 	<multiplier></multiplier>
 </div>
+<div class="allPicksButtons" ng-hide="numberOfTickets <= 1">
+	<a ng-click="quickpickAll()">Quick Pick All</a> | 
+	<a ng-click="clearAllPicks()">Clear All</a>
+</div>
 
 <ul class ="gameDetailTabs"> 
 	<li ng-repeat="gameTab in currentGame.gamesTabs">

@@ -17,6 +17,6 @@
 		</div>
 	</div>
 	<div class="confirmCheckout">
-		<button ng-click="confirmCheckout()" ng-disabled="isInEditMode()" id="confirmCheckoutBtn" ng-class="checkoutButtonActive()">Confirm Checkout</button>
+		<button ng-click="confirmCheckout()" ng-disabled="isInEditMode()" id="confirmCheckoutBtn" ng-class="checkoutButtonActive()" ng-disabled="cardData.length <= 0">Confirm Checkout</button>
 	</div>
 </div>	

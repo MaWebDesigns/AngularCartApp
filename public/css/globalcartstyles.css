@@ -463,3 +463,40 @@ th:last-of-type
 	padding: 20px;
 }
 
+.caret-down::after
+{
+	content: "";
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid #000;
+	position: relative;
+	display: inline-block;
+	top: -0.15em;
+}
+
+.caret-up::after
+{
+	content: "";
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #000;
+	position: relative;
+	display: inline-block;
+	top: -0.15em;
+}
+
+.cartContents 
+{
+	color: #f00;
+	font-weight: bold;
+}
+
+tfoot
+{
+	background-color:white;
+	border: 1px solid #000;
+}

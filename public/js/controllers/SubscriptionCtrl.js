@@ -17,6 +17,16 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 	$scope.groups = ["group 1", "group 2", "group 3"];   // Available Groups
 	$scope.userGroup = "";								 // Currrent Group
 	
+	
+	/************************************************************************
+	// setupGame
+	// Initializes the game and resets all class variables to their initial
+	// state
+	//
+	// Inputs: 
+	//      game - Current game being displaied.
+	//    
+	*/
 	$scope.setupGame = function(game)
 	{
 		$scope.currentGame = game;
@@ -27,13 +37,27 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		$scope.updateTickets();
 	}
 	
+	/************************************************************************
+	// showGame
+	// Changes the active game to the one that was clicked on
+	//
+	// Inputs: 
+	//      game - game that we are transitioning to.
+	//    
+	*/
 	$scope.showGame = function(clickedGame) {
 		$scope.setupGame(clickedGame);
 	}
 	
+	/*************************************************************************** 
+	// getLoopNumber()
 	// This is a utility function to be able to use ng-repeat for 
 	// numbers instead of objects.   ng-repeat only used objects to loop over
 	// so this converts numbers into an object for us.   
+	//
+	// Inputs: 
+	//     num - looping number.   
+	*/
 	$scope.getLoopNumber = function(num) {
 		if (!num)
 		{
@@ -43,6 +67,13 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		return new Array(num);
 	}
 	
+	/*************************************************************************** 
+	// hideTicket()
+	// Hides the current ticket information. 
+	//
+	// Inputs: 
+	//     ticket - ticket to hide  
+	*/
 	$scope.hideTicket = function(ticket)
 	{
 		if (ticket === $scope.activeTicket)
@@ -55,6 +86,13 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}
 	}
 	
+	/*************************************************************************** 
+	// hideTicket()
+	// Changes the active ticket to the next one in the list.   
+	//
+	// Inputs: 
+	//     direction - next or previous ticket.   
+	*/
 	$scope.changeActiveTicket = function(direction)
 	{
 		if (!direction)
@@ -78,6 +116,14 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}
 	}
 	
+	/*************************************************************************** 
+	// updateTickets
+	// When the ticket selector is changed, this function creates the new
+    // tickets for the user and clears out any previous non-saved tickets	
+	//
+	// Inputs: none.  
+	//       
+	*/
 	$scope.updateTickets = function() 
 	{
 		$scope.usersTickets = [];
@@ -108,7 +154,16 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}		
 	}
 	
-	// Add the users numbers to an array.  
+	/*************************************************************************** 
+	// addUserNumbers
+	// Add the users-picked numbers to an array specific to the ticket that they
+	// are working with 
+	//
+	// Inputs: 
+	//    ticket -  ticket the numbers are being picked for
+	//    pickedNumber -  the number the user picked in the current drawpool.
+	//       
+	*/
 	$scope.addUserNumbers = function(ticket, pickedNumber) {
 		
 		// Loop through and replace the first "-" encountered with the picked number,
@@ -136,6 +191,15 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		
 	}
 	
+	/*************************************************************************** 
+	// addBonusNumbers
+	// Add the users selection of the bonus numbers to the selected ticket
+	//
+	// Inputs: 
+	//    ticket -  ticket the numbers are being picked for
+	//    pickedNumber -  the number the user picked in the current drawpool.
+	//       
+	*/
 	$scope.addBonusNumber = function(ticket, pickedBonusNumber) {
 		for (var i = 0; i < $scope.usersTickets[ticket].bonusNumbers.length; i++)
 		{
@@ -143,8 +207,16 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}
 	}
 	
-	// Check to see if the button has been selected, and if so
-	// add a class to it.   
+	/*************************************************************************** 
+	// isSelected
+	// checks to see if a number has been selected in the current drawpool
+	// and changes the class/style of that particular button in the drawpool.   
+	//
+	// Inputs: 
+	//    ticket -  ticket we are checking against
+	//    item   -  the number we are checking.
+	//       
+	*/
 	$scope.isSelected = function(ticket, item) 
 	{	
 		item = item.toString();
@@ -164,8 +236,16 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}
 	}
 	
-	// Check to see if the bonus button has been selected, and if so
-	// add a class to it.   
+	/*************************************************************************** 
+	// isBonusSelected
+	// checks to see if a number has been selected in the bonus drawpool
+	// and changes the class/style of that particular button in the drawpool.   
+	//
+	// Inputs: 
+	//    ticket -  ticket we are checking against
+	//    item   -  the number we are checking.
+	//       
+	*/
 	$scope.isBonusSelected = function(ticket,  item) 
 	{
 		item = item.toString();
@@ -182,6 +262,16 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}
 	}
 	
+	/*************************************************************************** 
+	// ticketNumbersChanged
+	// Changes the drawpool tab based on the number the user has clicked on 
+	// in the ticket input fields.   
+	//
+	// Inputs: 
+	//    ticket -  ticket we are checking against
+	//    isBonusNumber -  is the field the user picked a bonus number
+	//       
+	*/
 	$scope.ticketNumbersChanged = function(ticket, isBonusNumber)
 	{
 		$scope.activeTicket = ticket;
@@ -199,8 +289,29 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 	
 	}
 	
+	/*************************************************************************** 
+	// quickpickAll 
+	// Changes all the current tickets to use quickpick numbers. 
+	//
+	// Inputs:  None.
+	//       
+	*/
+	$scope.quickpickAll = function()
+	{
+		for (var i =0; i < $scope.cartData.length; i++)
+		{
+			$scope.createQuickpick(i);
+		}
+	}
 	
-	// Creates a "quickpick" ticket.   
+	/*************************************************************************** 
+	// createQuickpick 
+	// Creates a quickpick for the selected ticket
+	//
+	// Inputs:  
+	//    ticket - ticket the quickpick is for.
+	//       
+	*/
 	$scope.createQuickpick = function(ticket) 
 	{
 		$scope.clearUserNumbers(ticket);
@@ -243,7 +354,29 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		$scope.drawUpdated();
 	}
 	
-	// Clears the user numbers array and resets the buttons.
+	/*************************************************************************** 
+	// clearAllPicks
+	// Clears all tickets and resets them to their original state
+	//
+	// Inputs:  None
+	//       
+	*/
+	$scope.clearAllPicks = function()
+	{
+		for (var i =0; i < $scope.cartData.length; i++)
+		{
+			$scope.clearUserNumbers(i);
+		}
+	}
+	
+	/*************************************************************************** 
+	// clearUserNumbers
+	// Clears the numbers of the currently selected ticket
+	//
+	// Inputs:  
+	//    ticket  - ticket to clear the numbers of.   
+	//       
+	*/
 	$scope.clearUserNumbers =  function(ticket) 
 	{
 		if ( typeof ticket === 'undefined')
@@ -265,6 +398,14 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}
 	}
 	
+	/*************************************************************************** 
+	// showTabDetails
+	// Show the detailed information of the selected tab
+	//
+	// Inputs:  
+	//    selectedTab - tab to show the details of   
+	//       
+	*/
 	$scope.showTabDetails = function (selectedTab) {
 		switch (selectedTab) {
 			case "info" : 
@@ -289,20 +430,54 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}
 	}
 	
+	/*************************************************************************** 
+	// isInfoTabSelected
+	// returns a boolian showing if the Info tab is currently selected. 
+	//
+	// Inputs:  
+	//    none
+	//
+	//	Returns:  True if info tab is selected,  False otherwise
+	*/
 	$scope.isInfoTabSelected = function () {
 		return $scope.infoTabSelected;
 	}
 	
+	/*************************************************************************** 
+	// isNumbersTabSelected
+	// returns a boolian showing if the Numbers tab is currently selected. 
+	//
+	// Inputs:  
+	//    none
+	//
+	//	Returns:  True if numbers tab is selected,  False otherwise
+	*/
 	$scope.isNumbersTabSelected = function () {
 		return $scope.numbersTabSelected;
 	}
 	
+	/*************************************************************************** 
+	// isBonusTabSelected
+	// returns a boolian showing if the bonus tab is currently selected. 
+	//
+	// Inputs:  
+	//    none
+	//
+	//	Returns:  True if bonus tab is selected,  False otherwise
+	*/
 	$scope.isBonusTabSelected = function () {
 		return $scope.bonusBallTabSelected;
 	}
 	
-	// Update total when the draw is updated in some way.
-	$scope.drawUpdated = function(ticket) 
+	/*************************************************************************** 
+	// drawUpdated
+	// recalculates the tickets price when the number of draws is updated 
+	//
+	// Inputs:  
+	//    None
+	//
+	*/
+	$scope.drawUpdated = function() 
 	{
 		$scope.totalPrice = 0;
 		for (var i=0; i < $scope.usersTickets.length; i++)
@@ -317,9 +492,20 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 		}	
 	}
 	
+	/*************************************************************************** 
+	// addToCart
+	// Adds the current tickts to the cart, which is a JSON object.   Calls
+	// the SaveItemToCart API which saves the JSON object to a file for 
+	// later retrivial by the cart controller.
+	//
+	// Inputs:  
+	//    None
+	//
+	*/
 	$scope.addToCart = function() {
 	
-		var cartData = [{ 
+		var badNumbers = false, 
+			cartData = { 
 			'userId' : "TBD12345",
 			'gameId' : $scope.currentGame.gameName,
 			'gameImg' : $scope.currentGame.gameLogo,
@@ -330,20 +516,57 @@ angular.module('SubscriptionCtrl', []).controller('SubscriptionController', func
 			'group' : $scope.userGroup,
 			'availableGroups': $scope.groups,
 			'totalPrice' :  $scope.totalPrice
-		}];
-		Games.saveItemToCart("api/saveCart",  cartData).success(function (data) {
-			console.log("Saved item to cart");
-			
-			// This is a hack - but the Angular is faster than the data being loaded.   
-			// a promice on the API side is probably needed. . . .
-			$timeout(function() {
-				$location.path("/cart");
-			}, 100);
-		});
+		};
 		
+		// Using a label for the loop so I can break out of it easy.   
+		ticketLoop: 
+			for (var i = 0;  i < cartData.tickets.length; i++)
+			{
+				for (var j=0; j < cartData.tickets[i].numbers.length; j++)
+				{
+					if (cartData.tickets[i].numbers[j].indexOf('-') >= 0)
+					{
+						badNumbers = true;
+						break ticketLoop;   // break out of both loops
+					}
+				}
+				for (var j=0; j < cartData.tickets[i].bonusNumbers.length; j++)
+				{
+					if (cartData.tickets[i].bonusNumbers[j].indexOf('-') >= 0)
+					{
+						badNumbers = true;
+						break ticketLoop;   // break out of both loops
+					}
+				}
+			}
+		
+		if (badNumbers === true)
+		{
+			alert("You must fill out all tickets before saving");
+		}
+		else 
+		{
+			Games.saveItemToCart("api/saveCart",  cartData).success(function (data) {
+				console.log("Saved item to cart");
+			
+				// This is a hack - but the Angular is faster than the data being loaded.   
+				// a promice on the API side is probably needed. . . .
+				$timeout(function() {
+					$location.path("/cart");
+				}, 100);
+			});
+		}
 	}
 	
-	// Get the game details from the JSON file and set up the games.   
+	/*************************************************************************** 
+	// getGames
+	// Gets the all the game details for the user from a JSON file and then
+	// set them up for the user.   
+	//
+	// Inputs:  
+	//    JSON file - the file containing the game details.   
+	//
+	*/   
 	Games.getGames('data/gameDetails.json').success( function (data)
 	{
 		$scope.gameData = data.games;
